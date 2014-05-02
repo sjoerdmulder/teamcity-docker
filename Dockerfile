@@ -16,6 +16,9 @@ RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
 
 VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql", "/var/lib/teamcity"]
 
+# Enable the correct Valve when running behind a proxy
+RUN sed -i -e "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/" /opt/TeamCity/conf/server.xml
+
 # Expose the SSH, PostgreSQL and Teamcity port
 EXPOSE 22 5432 8111
 
