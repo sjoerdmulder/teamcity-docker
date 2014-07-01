@@ -24,4 +24,6 @@ EXPOSE 22 5432 8111
 
 ENV TEAMCITY_DATA_PATH /var/lib/teamcity
 
+RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chown root:ssl-cert -R /etc/ssl/private; chmod -R 0640 /etc/ssl/private; chmod 0750 /etc/ssl/private;
+
 ADD service /etc/service
