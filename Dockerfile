@@ -1,6 +1,6 @@
 FROM sjoerdmulder/java7
 # Get and install teamcity
-RUN curl http://download-ln.jetbrains.com/teamcity/TeamCity-8.1.4.tar.gz | tar -xz -C /opt
+RUN curl http://download-ln.jetbrains.com/teamcity/TeamCity-8.1.5.tar.gz | tar -xz -C /opt
 
 # Install postgress
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
