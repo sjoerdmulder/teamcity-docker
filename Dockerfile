@@ -1,4 +1,4 @@
-FROM sjoerdmulder/java7
+FROM sjoerdmulder/java8
 # Get and install teamcity
 RUN curl http://download-ln.jetbrains.com/teamcity/TeamCity-8.1.5.tar.gz | tar -xz -C /opt
 
