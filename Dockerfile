@@ -19,8 +19,8 @@ VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql", "/var/
 # Enable the correct Valve when running behind a proxy
 RUN sed -i -e "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/" /opt/TeamCity/conf/server.xml
 
-# Expose the SSH, PostgreSQL and Teamcity port
-EXPOSE 22 5432 8111
+# Expose the PostgreSQL and Teamcity port
+EXPOSE 5432 8111
 
 ENV TEAMCITY_DATA_PATH /var/lib/teamcity
 
