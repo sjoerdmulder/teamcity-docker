@@ -1,4 +1,7 @@
 #!/bin/bash
 set -e
-echo "Starting postgress..."
-/sbin/setuser postgres /usr/lib/postgresql/$VERSION_POSTGRES/bin/postgres -D /var/lib/postgresql/$VERSION_POSTGRES/main -c config_file=/etc/postgresql/$VERSION_POSTGRES/main/postgresql.conf
+echo "Starting Postgres $VERSION_POSTGRES."
+
+/sbin/setuser postgres /usr/lib/postgresql/$VERSION_POSTGRES/bin/postgres\
+ -D /var/lib/postgresql/$VERSION_POSTGRES/main\
+ -c config_file=/etc/postgresql/$VERSION_POSTGRES/main/postgresql.conf
