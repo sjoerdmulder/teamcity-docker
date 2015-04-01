@@ -6,13 +6,15 @@ RUN DEBIAN_FRONTEND=noninteractive\
     runit\
     libtcnative-1
 
-# Install teamcity
-RUN curl -s http://download-ln.jetbrains.com/teamcity/TeamCity-9.0.3.tar.gz | tar -xzC /opt;
+ENV JDBC_DRIVER=mysql-connector-java-5.1.35\
+    TEAMCITY_DATA_PATH=/var/lib/teamcity
 
 # Install jdbc driver
-RUN JDBC_DRIVER=mysql-connector-java-5.1.35\
-    mkdir -p $TEAMCITY_DATA_PATH/lib/jdbc $TEAMCITY_DATA_PATH/config;\
-    curl -sL http://dev.mysql.com/get/Downloads/Connector-J/$JDBC_DRIVER.tar.gz |  tar --strip=1-xz  $JDBC_DRIVER/$JDBC_DRIVER-bin.jar -C /var/lib/teamcity/lib/jdbc
+RUN mkdir -p $TEAMCITY_DATA_PATH/lib/jdbc $TEAMCITY_DATA_PATH/config;\
+    curl -sL http://dev.mysql.com/get/Downloads/Connector-J/$JDBC_DRIVER.tar.gz |  tar --strip=1 -xz  $JDBC_DRIVER/$JDBC_DRIVER-bin.jar -C $TEAMCITY_DATA_PATH/lib/jdbc
+
+# Install teamcity
+RUN curl -s http://download-ln.jetbrains.com/teamcity/TeamCity-9.0.3.tar.gz | tar -xzC /opt;
 
 RUN sed -i -e\
     "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/"\
