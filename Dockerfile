@@ -14,11 +14,15 @@ RUN apt-get update -qq && apt-get -qqy install\
 
 # Install teamcity and Postgres driver
 RUN curl --silent http://download-ln.jetbrains.com/teamcity/TeamCity-9.0.3.tar.gz | tar -xz -C /opt;
+
 RUN mkdir -p $TEAMCITY_DATA_PATH/lib/jdbc $TEAMCITY_DATA_PATH/config;\
     wget --quiet -P $TEAMCITY_DATA_PATH/lib/jdbc http://jdbc.postgresql.org/download/$JDBC_DRIVER;
-RUN sed -i -e "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/" /opt/TeamCity/conf/server.xml
 
-VOLUME  ["/var/lib/teamcity" ]
+RUN sed -i -e\
+    "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/"\
+    /opt/TeamCity/conf/server.xml
+
+VOLUME /var/lib/teamcity
 
 EXPOSE 8111
 
