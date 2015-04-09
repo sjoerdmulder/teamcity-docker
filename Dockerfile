@@ -1,29 +1,27 @@
-FROM sjoerdmulder/java8
-# Get and install teamcity
-RUN curl http://download-ln.jetbrains.com/teamcity/TeamCity-9.0.3.tar.gz | tar -xz -C /opt
+FROM java:8
 
-# Install postgress
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-RUN apt-get update
-RUN apt-get -y install postgresql-9.3 postgresql-client-9.3 postgresql-contrib-9.3 pwgen
+ENV JDBC_DRIVER=mysql-connector-java-5.1.35\
+        TEAMCITY_DATA_PATH=/var/lib/teamcity
 
-# Adjust PostgreSQL configuration so that remote connections to the
-# database are possible.
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
-# And add ``listen_addresses`` to ``/etc/postgresql/9.3/main/postgresql.conf``
-RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
+RUN DEBIAN_FRONTEND=noninteractive\
+    apt-get update -qq && apt-get -qqy install\
+    pwgen\
+    runit\
+    libtcnative-1
 
-VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql", "/var/lib/teamcity"]
+# Install teamcity
+RUN curl -s http://download-ln.jetbrains.com/teamcity/TeamCity-9.0.3.tar.gz | tar -xzC /opt;
 
-# Enable the correct Valve when running behind a proxy
-RUN sed -i -e "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/" /opt/TeamCity/conf/server.xml
+# Install jdbc driver
+RUN mkdir -p $TEAMCITY_DATA_PATH/lib/jdbc $TEAMCITY_DATA_PATH/config;\
+    cd /tmp;\
+    wget -q http://dev.mysql.com/get/Downloads/Connector-J/$JDBC_DRIVER.tar.gz;\
+    tar --strip=1 -xz $JDBC_DRIVER/$JDBC_DRIVER-bin.jar -f $JDBC_DRIVER.tar.gz;\
+    mv ./$JDBC_DRIVER-bin.jar $TEAMCITY_DATA_PATH/lib/jdbc/;\
+    rm $JDBC_DRIVER.tar.gz
 
-# Expose the PostgreSQL and Teamcity port
-EXPOSE 5432 8111
+VOLUME /var/lib/teamcity
 
-ENV TEAMCITY_DATA_PATH /var/lib/teamcity
+EXPOSE 8111
 
-RUN mkdir /etc/ssl/private-copy; mv /etc/ssl/private/* /etc/ssl/private-copy/; rm -r /etc/ssl/private; mv /etc/ssl/private-copy /etc/ssl/private; chown root:ssl-cert -R /etc/ssl/private; chmod -R 0640 /etc/ssl/private; chmod 0750 /etc/ssl/private;
-
-ADD service /etc/service
+CMD /opt/TeamCity/bin/teamcity-server.sh run >> /var/log/teamcity.log
