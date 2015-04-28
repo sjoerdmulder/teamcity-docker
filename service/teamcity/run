@@ -2,22 +2,11 @@
 set -e
 
 mkdir -p $TEAMCITY_DATA_PATH/lib/jdbc $TEAMCITY_DATA_PATH/config
-if [ ! -f "$TEAMCITY_DATA_PATH/lib/jdbc/postgresql-9.3-1101.jdbc41.jar" ];
+if [ ! -f "$TEAMCITY_DATA_PATH/lib/jdbc/postgresql-9.3-1103.jdbc41.jar" ];
 then
-    echo "Downloading postgress JDBC driver"
-    wget -P $TEAMCITY_DATA_PATH/lib/jdbc http://jdbc.postgresql.org/download/postgresql-9.3-1101.jdbc41.jar
+    echo "Downloading postgress JDBC driver..."
+    wget -P $TEAMCITY_DATA_PATH/lib/jdbc http://jdbc.postgresql.org/download/postgresql-9.3-1103.jdbc41.jar
 fi
 
-# Wait for postgress
-while ! echo exit | nc -z -w 3 localhost 5432; do sleep 3; done
-
-if [ ! -f "$TEAMCITY_DATA_PATH/config/database.properties" ];
-then
-    echo "Database yet not configured, creating database"
-    PSQL_PASSWORD=`pwgen -c -n -1 12`
-    chpst -u postgres:postgres psql --command "CREATE USER teamcity WITH SUPERUSER PASSWORD '$PSQL_PASSWORD';"
-    chpst -u postgres:postgres createdb -O teamcity teamcity
-    echo "User 'teamcity' with database 'teamcity' created, password is '$PSQL_PASSWORD' this is the last time the password is printed"
-fi
 echo "Starting teamcity..."
 /opt/TeamCity/bin/teamcity-server.sh run >> /var/log/teamcity.log
