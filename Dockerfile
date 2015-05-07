@@ -1,7 +1,7 @@
 FROM java:8
 
 ENV JDBC_DRIVER=mysql-connector-java-5.1.35\
-        TEAMCITY_DATA_PATH=/var/lib/teamcity
+    TEAMCITY_DATA_PATH=/var/lib/teamcity
 
 RUN DEBIAN_FRONTEND=noninteractive\
     apt-get update -qq && apt-get -qqy install\
