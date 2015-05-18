@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive\
     libtcnative-1
 
 # Install teamcity
-RUN curl -s http://download-ln.jetbrains.com/teamcity/TeamCity-9.0.3.tar.gz | tar -xzC /opt;
+RUN curl -s http://download-ln.jetbrains.com/teamcity/TeamCity-9.0.4.tar.gz | tar -xzC /opt;
 
 # Install jdbc driver
 RUN mkdir -p $TEAMCITY_DATA_PATH/lib/jdbc $TEAMCITY_DATA_PATH/config;\
