@@ -5,7 +5,7 @@ RUN curl http://download-ln.jetbrains.com/teamcity/TeamCity-9.0.4.tar.gz | tar -
 # Enable the correct Valve when running behind a proxy
 RUN sed -i -e "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/" /opt/TeamCity/conf/server.xml
 
-VOLUME "/var/lib/teamcity"
+VOLUME /var/lib/teamcity
 # Expose the Teamcity port
 EXPOSE  8111
 
