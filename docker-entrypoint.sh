@@ -9,4 +9,4 @@ then
 fi
 
 echo "Starting teamcity..."
-/opt/TeamCity/bin/teamcity-server.sh run >> /var/log/teamcity.log
+exec /opt/TeamCity/bin/teamcity-server.sh run
