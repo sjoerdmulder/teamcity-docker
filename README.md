@@ -5,18 +5,14 @@ This docker image can use (optionally) an external postgress database instead of
 How to use this image with postgres?
 ---------------
 
-Start an official docker postgres instance
 ```
-docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
-```
-Create the database using psql:
-```
-docker run -it --link some-postgres:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
-```
-And execute:
-```
-create role teamcity with login password 'teamcity';
-create database teamcity owner teamcity;
+POSTGRES_PASSWORD=mysecretpassword
+SETUP_TEAMCITY_SQL="create role teamcity with login password 'teamcity';create database teamcity owner teamcity;"
+
+# Start an official docker postgres instance
+docker run --name some-postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -d postgres
+# Create the database using psql
+docker run -it --link some-postgres:postgres --rm -e "SETUP_TEAMCITY_SQL=$SETUP_TEAMCITY_SQL" -e "PGPASSWORD=$POSTGRES_PASSWORD" postgres bash -c 'exec echo $SETUP_TEAMCITY_SQL |psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
 ```
 After this you can start the teamcity image linking it to the postgres image
 ```
