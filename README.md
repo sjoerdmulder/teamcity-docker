@@ -1,6 +1,13 @@
-teamcity-docker
+JetBrains TeamCity docker image
 ===============
-This docker image can use (optionally) an external postgress database instead of the internal database of teamcity.
+
+Distributed Build Management and Continuous Integration Server
+
+By default, each TeamCity installation runs under a Professional Server license including 3 build agents. This license is provided for free with any downloaded TeamCity binary and gives you full access to all product features with no time limit. The only restriction is a maximum of 20 build configurations.
+
+By pulling this image you accept the [JetBrains license agreement for TeamCity (Commercial License)] (https://www.jetbrains.com/teamcity/buy/license.html)
+
+This docker image can use (optionally) an external postgress database instead of the internal database of teamcity. (recommended for production usage)
 
 How to use this image with postgres?
 ---------------
@@ -22,6 +29,6 @@ In the installation screen of teamcity as host for postgress you can specify `po
 
 Howto upgrade to a new version?
 ----------------
-1. Stop the old image
-2. `docker pull sjoerdmulder/teamcity`
-3. `docker run --link some-postgres:postgres -v <teamcitydir>:/var/lib/teamcity -p 8111:8111 sjoerdmulder/teamcity`
+1. `docker pull sjoerdmulder/teamcity:latest`
+2. stop the old image
+3. `docker run --link some-postgres:postgres -v <teamcitydir>:/var/lib/teamcity -p 8111:8111 sjoerdmulder/teamcity:latest`
