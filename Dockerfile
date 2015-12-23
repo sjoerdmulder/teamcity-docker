@@ -2,7 +2,7 @@ FROM java:8
 
 MAINTAINER Sjoerd Mulder <sjoerd@sagent.io>
 
-ENV TEAMCITY_VERSION 9.1.4
+ENV TEAMCITY_VERSION 9.1.5
 ENV TEAMCITY_DATA_PATH /var/lib/teamcity
 
 # Get and install teamcity
