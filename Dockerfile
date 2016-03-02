@@ -5,6 +5,8 @@ MAINTAINER Sjoerd Mulder <sjoerd@sagent.io>
 ENV TEAMCITY_VERSION 9.1.6
 ENV TEAMCITY_DATA_PATH /var/lib/teamcity
 
+RUN apt-get update && apt-get install libmysql-java && apt-get clean
+
 # Get and install teamcity
 RUN wget -qO- https://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION.tar.gz | tar xz -C /opt
 
