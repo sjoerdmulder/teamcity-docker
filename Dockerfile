@@ -1,6 +1,6 @@
 FROM java:8
 
-MAINTAINER Sjoerd Mulder <sjoerd@sagent.io>
+MAINTAINER Sjoerd Mulder <sjoerd@crobox.com>
 
 ENV TEAMCITY_VERSION 9.1.7
 ENV TEAMCITY_DATA_PATH /var/lib/teamcity
