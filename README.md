@@ -7,7 +7,33 @@ By default, each TeamCity installation runs under a Professional Server license 
 
 By pulling this image you accept the [JetBrains license agreement for TeamCity (Commercial License)] (https://www.jetbrains.com/teamcity/buy/license.html)
 
-This docker image can use (optionally) an external postgress database instead of the internal database of teamcity. (recommended for production usage)
+This docker image can use (optionally) an external postgress or mysql database instead of the internal database of TeamCity. (recommended for production usage)
+
+How to use this image?
+---------------
+
+A typical way to create the container and make sure it gets restarted:
+
+    docker run -v /var/lib/teamcity:/var/lib/teamcity -v /dev/urandom:/dev/random -p 8111:8111 --restart=always --name teamcity teamcity
+
+Note the `urandom` volume. Without it TeamCity can take up to 30 minutes to start due to waiting for bits to appear in `/dev/random`. (Don't worry, [it's okay](http://www.2uo.de/myths-about-urandom/).)
+
+Restart always ensures the container will keep running if it crashes or the host reboots.
+
+How to use this image with mysql?
+---------------
+
+Add an env var saying `DATABASE=mysql`.
+
+    docker run -v /var/lib/teamcity:/var/lib/teamcity -v /dev/urandom:/dev/random -e "DATABASE=mysql" -p 8111:8111 --name teamcity teamcity
+
+If you want to use MySQL with SSL, like for Google SQL, you will need to hand edit `/var/lib/teamcity/config/database.properties`.
+
+Where is data persisted?
+---------------
+
+In `/var/lib/teamcity` on the host assuming you used the run command above.
+
 
 How to use this image with postgres?
 ---------------
@@ -18,6 +44,7 @@ SETUP_TEAMCITY_SQL="create role teamcity with login password 'teamcity';create d
 
 # Start an official docker postgres instance
 docker run --name some-postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -d postgres
+
 # Create the database using psql
 docker run -it --link some-postgres:postgres --rm -e "SETUP_TEAMCITY_SQL=$SETUP_TEAMCITY_SQL" -e "PGPASSWORD=$POSTGRES_PASSWORD" postgres bash -c 'exec echo $SETUP_TEAMCITY_SQL |psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
 ```
