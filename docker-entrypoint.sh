@@ -23,7 +23,7 @@ then
     echo "maxConnections=50" >> $TEAMCITY_DATA_PATH/config/database.properties    
 fi
 
-sed -i 's|Connector port=\"[0-9a-z.]\{1,\}\"|Connector port=\"${TEAMCITY_PORT}\"|g' /opt/TeamCity/conf/server.xml
+sed -i "s|Connector port=\"[0-9a-z.]\{1,\}\"|Connector port=\"${TEAMCITY_PORT}\"|g" /opt/TeamCity/conf/server.xml
 
 echo "Starting teamcity..."
 exec /opt/TeamCity/bin/teamcity-server.sh run
