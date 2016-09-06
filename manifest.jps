@@ -1,0 +1,53 @@
+{
+  "jpsType": "install",
+  "application": {
+    "name": "TeamCity",
+    "homepage": "https://www.jetbrains.com/teamcity/",
+    "env": {
+      "topology": {
+        "nodes": [
+          {
+            "cloudlets": 16,
+            "nodeType": "docker",
+            "nodeGroup": "cp",
+            "docker": {
+              "image": "sych74/teamcity",
+              "links": "sqldb:postgres",
+              "volumes": ["/var/lib/teamcity"],
+              "env" : {
+                "TEAMCITY_PORT": "80"
+              },
+            },
+            "displayName": "TeamCity server"
+          }, {
+            "cloudlets": 8,
+            "nodeType": "docker",
+            "nodeGroup": "sqldb",
+            "docker": {
+              "image": "postgres",
+               "env" : {
+                    "POSTGRES_USER": "change_me",
+                    "POSTGRES_PASSWORD": "change_me",
+                    "POSTGRES_DB": "teamcity"
+               },
+            },
+            "displayName": "Database"
+          }, {
+            "cloudlets": 8,
+            "nodeType": "docker",
+            "nodeGroup": "agent",
+            "docker": {
+                "image": "sych74/teamcity-agent",
+                "links": "cp:teamcity",
+                "volumes": ["/opt/buildAgent"],
+                "env" : {
+                    "TEAMCITY_SERVER": "http://teamcity:80"
+                },
+            },
+            "displayName": "TeamCity agent"
+          }
+        ]
+      }
+    }
+  }
+}
