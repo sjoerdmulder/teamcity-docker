@@ -38,6 +38,7 @@
 					}
 				}, {
 					"displayName": "TeamCity agent",
+					"count": 3,
 					"cloudlets": 8,
 					"nodeType": "docker",
 					"nodeGroup": "agent",
