@@ -2,55 +2,55 @@
 	"jpsType": "install",
 	"application": {
 		"name": "TeamCity",
-    		"homepage": "https://www.jetbrains.com/teamcity/",
-    		"description": "TeamCity is a Java-based build management and continuous integration server",
-    		"success": {
+		"homepage": "https://www.jetbrains.com/teamcity/",
+		"description": "TeamCity is a Java-based build management and continuous integration server",
+		"success": {
 			"text": "Instance address: <a href='${env.url}' target='_blank'>${env.url}</a> </br></br>To add custom domain name for your TeamCity installation follow the steps described in our <a href='http://docs.jelastic.com/custom-domains' target='_blank'>documentation</a>",
 			"email": "Instance address: <a href='${env.url}' target='_blank'>${env.url}</a> </br></br>To add custom domain name for your TeamCity installation follow the steps described in our <a href='http://docs.jelastic.com/custom-domains' target='_blank'>documentation</a>"
 		},
-  		"env": {
-      			"topology": {
-        			"nodes": [{
-            				"cloudlets": 16,
-            				"nodeType": "docker",
-            				"nodeGroup": "cp",
-            				"docker": {
-              					"image": "sych74/teamcity",
-              					"links": "sqldb:postgres",
-              					"volumes": ["/var/lib/teamcity"],
-              					"env" : {
-                					"TEAMCITY_PORT": "80"
-              					},
-            				},
-            				"displayName": "TeamCity server"
-          			}, {
-            				"cloudlets": 8,
-            				"nodeType": "docker",
-            				"nodeGroup": "sqldb",
-            				"docker": {
-              					"image": "postgres",
-               					"env" : {
-                    					"POSTGRES_USER": "change_me",
-                    					"POSTGRES_PASSWORD": "change_me",
-                    					"POSTGRES_DB": "teamcity"
-               					},
-            				},
-            				"displayName": "Database"
-          			}, {
-            				"cloudlets": 8,
-            				"nodeType": "docker",
-            				"nodeGroup": "agent",
-            				"docker": {
-                				"image": "sych74/teamcity-agent",
-                				"links": "cp:teamcity",
-                				"volumes": ["/opt/buildAgent"],
-                				"env" : {
-                    					"TEAMCITY_SERVER": "http://teamcity:80"
-                				},
-            				},
-            				"displayName": "TeamCity agent"
-          			}
-      			}]
-    		}
-  	}
+		"env": {
+			"topology": {
+				"nodes": [{
+					"displayName": "TeamCity server",
+					"cloudlets": 16,
+					"nodeType": "docker",
+					"nodeGroup": "cp",
+					"docker": {
+						"image": "sych74/teamcity",
+						"links": "sqldb:postgres",
+						"volumes": ["/var/lib/teamcity"],
+						"env" : {
+							"TEAMCITY_PORT": "80"
+						}
+					}
+				}, {
+					"displayName": "Database",
+					"cloudlets": 8,
+					"nodeType": "docker",
+					"nodeGroup": "sqldb",
+					"docker": {
+						"image": "postgres",
+						"env" : {
+							"POSTGRES_USER": "change_me",
+							"POSTGRES_PASSWORD": "change_me",
+							"POSTGRES_DB": "teamcity"
+						}
+					}
+				}, {
+					"displayName": "TeamCity agent",
+					"cloudlets": 8,
+					"nodeType": "docker",
+					"nodeGroup": "agent",
+					"docker": {
+						"image": "sych74/teamcity-agent",
+						"links": "cp:teamcity",
+						"volumes": ["/opt/buildAgent"],
+						"env" : {
+							"TEAMCITY_SERVER": "http://teamcity:80"
+						}
+					}
+				}
+			}]
+		}
+	}
 }
