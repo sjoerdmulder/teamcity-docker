@@ -3,7 +3,12 @@
   "application": {
     "name": "TeamCity",
     "homepage": "https://www.jetbrains.com/teamcity/",
-    "env": {
+    "description": "TeamCity is a Java-based build management and continuous integration server"
+    "success": {
+			"text": "Instance address: <a href='${env.url}' target='_blank'>${env.url}</a> </br></br>To add custom domain name for your TeamCity installation follow the steps described in our <a href='http://docs.jelastic.com/custom-domains' target='_blank'>documentation</a>",
+			"email": "Instance address: <a href='${env.url}' target='_blank'>${env.url}</a> </br></br>To add custom domain name for your TeamCity installation follow the steps described in our <a href='http://docs.jelastic.com/custom-domains' target='_blank'>documentation</a>"
+		},
+  "env": {
       "topology": {
         "nodes": [
           {
