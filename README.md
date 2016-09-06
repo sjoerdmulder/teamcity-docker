@@ -37,7 +37,7 @@ Howto upgrade to a new version?
 
 ###[Jelastic](https://jelastic.com)
 
-This [JPS](../../raw/master/manifest.jps) manifest  deploys TeamCity that initially contains TeamCity server, official Postgres database container and scalable teamcity agents.
+This [JPS](../../raw/master/manifest.jps) manifest  deploys TeamCity that initially contains TeamCity server, [official Postgres image](https://hub.docker.com/_/postgres/) and scalable teamcity agents.
 
 In order to get this solution instantly deployed, click the "Deploy" button, specify your email address within the widget, choose one of the [Jelastic Public Cloud providers](https://jelastic.cloud) and press Install.
 
