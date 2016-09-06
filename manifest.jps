@@ -49,8 +49,8 @@
 							"TEAMCITY_SERVER": "http://teamcity:80"
 						}
 					}
-				}
-			}]
+				}]
+			}
 		}
 	}
 }
