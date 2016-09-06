@@ -49,8 +49,8 @@
                 				},
             				},
             				"displayName": "TeamCity agent"
-          			}]
-      			}
+          			}
+      			}]
     		}
   	}
 }
