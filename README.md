@@ -33,7 +33,7 @@ Howto upgrade to a new version?
 2. stop the old image
 3. `docker run --link some-postgres:postgres -v <teamcitydir>:/var/lib/teamcity -p 8111:8111 sjoerdmulder/teamcity:latest`
 
-##Deployment to the Cloud
+##Deployment to cloud
 
 [![Deploy](https://github.com/jelastic-jps/git-push-deploy/raw/master/images/deploy-to-jelastic.png)](https://jelastic.com/install-application/?manifest=https://raw.githubusercontent.com/sych74/teamcity-docker/master/manifest.jps) 
 
