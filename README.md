@@ -37,5 +37,5 @@ Howto upgrade to a new version?
 
 [![Deploy](https://github.com/jelastic-jps/git-push-deploy/raw/master/images/deploy-to-jelastic.png)](https://jelastic.com/install-application/?manifest=https://raw.githubusercontent.com/sych74/teamcity-docker/master/manifest.jps) 
 
-The deployment [manifest.jps](../../raw/master/manifest.jps) deploys [TeamCity server](https://hub.docker.com/r/sjoerdmulder/teamcity/), [official Postgres image](https://hub.docker.com/_/postgres/) and one [TeamCity build agent](https://hub.docker.com/r/sjoerdmulder/teamcity-agent/).
+The [manifest.jps](../../raw/master/manifest.jps) initially deploys and configures [TeamCity server](https://hub.docker.com/r/sjoerdmulder/teamcity/), official [Postgres image](https://hub.docker.com/_/postgres/) and one [TeamCity build agent](https://hub.docker.com/r/sjoerdmulder/teamcity-agent/).
 
