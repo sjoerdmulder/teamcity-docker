@@ -27,7 +27,7 @@ docker run --link some-postgres:postgres -v <teamcitydir>:/var/lib/teamcity -d s
 ```
 In the installation screen of teamcity as host for postgress you can specify `postgres`
 
-Howto upgrade to a new version?
+How to upgrade to a new version?
 ----------------
 1. `docker pull sjoerdmulder/teamcity:latest`
 2. stop the old image
