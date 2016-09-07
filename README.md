@@ -35,14 +35,7 @@ Howto upgrade to a new version?
 
 ##Deployment to the Cloud
 
-###[Jelastic](https://jelastic.com)
-
-This [JPS](../../raw/master/manifest.jps) manifest  deploys TeamCity that initially contains [TeamCity server](https://hub.docker.com/r/sjoerdmulder/teamcity/), [official Postgres image](https://hub.docker.com/_/postgres/) and scalable [TeamCity build agents](https://hub.docker.com/r/sjoerdmulder/teamcity-agent/).
-
-In order to get this solution instantly deployed, click the "Deploy" button, specify your email address within the widget, choose one of the [Jelastic Public Cloud providers](https://jelastic.cloud) and press Install.
-
 [![Deploy](https://github.com/jelastic-jps/git-push-deploy/raw/master/images/deploy-to-jelastic.png)](https://jelastic.com/install-application/?manifest=https://raw.githubusercontent.com/sych74/teamcity-docker/master/manifest.jps) 
 
-To deploy this package to Jelastic Private Cloud, import [this JPS manifest](../../raw/master/manifest.jps) within your dashboard ([detailed instruction](https://docs.jelastic.com/environment-export-import#import)).
+The deployment [manifest.jps](../../raw/master/manifest.jps) deploys [TeamCity server](https://hub.docker.com/r/sjoerdmulder/teamcity/), [official Postgres image](https://hub.docker.com/_/postgres/) and one [TeamCity build agent](https://hub.docker.com/r/sjoerdmulder/teamcity-agent/).
 
-More information about Jelastic JPS package and about installation widget for your website can be found in the [Jelastic JPS Application Package](https://github.com/jelastic-jps/jpswiki/wiki/Jelastic-JPS-Application-Package) reference.
