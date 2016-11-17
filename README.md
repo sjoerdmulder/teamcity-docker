@@ -1,3 +1,9 @@
+Docker image
+===============
+[![Docker automated build](https://img.shields.io/badge/docker-automated--build-blue.svg?style=flat-square)](https://hub.docker.com/r/sjoerdmulder/teamcity/)
+[![Docker Stars](https://img.shields.io/docker/stars/sjoerdmulder/teamcity.svg?style=flat-square)](https://hub.docker.com/r/sjoerdmulder/teamcity/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/sjoerdmulder/teamcity.svg?style=flat-square)](https://hub.docker.com/r/sjoerdmulder/teamcity/)
+
 JetBrains TeamCity docker image
 ===============
 
