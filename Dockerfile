@@ -2,7 +2,7 @@ FROM java:8
 
 MAINTAINER Sjoerd Mulder <sjoerd@crobox.com>
 
-ENV TEAMCITY_VERSION 10.0.4
+ENV TEAMCITY_VERSION 10.0.5
 ENV TEAMCITY_DATA_PATH /var/lib/teamcity
 
 # Get and install teamcity
