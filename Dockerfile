@@ -9,7 +9,7 @@ ENV TEAMCITY_DATA_PATH /var/lib/teamcity
 RUN wget -qO- https://download.jetbrains.com/teamcity/TeamCity-$TEAMCITY_VERSION.tar.gz | tar xz -C /opt
 
 # Enable the correct Valve when running behind a proxy
-RUN sed -i -e "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" protocolHeader=\"x-forwarded-proto\" \/><\/Host>/" /opt/TeamCity/conf/server.xml
+RUN sed -i -e "s/\.*<\/Host>.*$/<Valve className=\"org.apache.catalina.valves.RemoteIpValve\" remoteIpHeader=\"x-forwarded-for\" protocolHeader=\"x-forwarded-proto\" portHeader=\"x-forwarded-port\" \/><\/Host>/" /opt/TeamCity/conf/server.xml
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
